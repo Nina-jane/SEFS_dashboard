@@ -31,6 +31,8 @@ thisPath = os.path.abspath(os.path.dirname(__file__))
 #print(dash.__version__)
 app = Dash(__name__, use_pages=True)
 
+server = app.server
+
 app.layout = html.Div([
             # Framework of the main app
             html.Div("The Science and Ethics of Fair Shares dashboard", style={'fontSize':50, 'textAlign':'center'}),
