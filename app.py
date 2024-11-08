@@ -29,7 +29,8 @@ import os #Used 11 times to join paths
 
 thisPath = os.path.abspath(os.path.dirname(__file__))
 #print(dash.__version__)
-app = Dash(__name__, use_pages=True)
+app = Dash(__name__)
+#use_pages=True)
 
 server = app.server
 
