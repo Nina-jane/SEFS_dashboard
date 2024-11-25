@@ -39,7 +39,8 @@ app.layout = html.Div([
             html.Div("The Science and Ethics of Fair Shares dashboard", style={'fontSize':50, 'textAlign':'center'}),
             html.Div([
                 dcc.Link(page['name']+"  |  ", href=page['path'])
-                for page in dash.page_registry.values()
+                #for page in dash.page_registry.values()
+                for page in dash.register_page.values()
             ]),
             html.Hr(),
             #Content of each page
