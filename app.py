@@ -1,6 +1,6 @@
 # Import libraries
 import dash
-from dash import Dash, dcc, html
+from dash import Dash, dcc, html, page_registry, page_container
 import os
 
 thisPath = os.path.abspath(os.path.dirname(__file__))
@@ -12,11 +12,11 @@ app.layout = html.Div([
             html.Div("The Science and Ethics of Fair Shares dashboard", style={'fontSize':50, 'textAlign':'center'}),
             html.Div([
                 dcc.Link(page['name']+"  |  ", href=page['path'])
-                for page in dash.page_registry.values()
+                for page in page_registry.values()
             ]),
             html.Hr(),
             #Content of each page
-            dash.page_container
+            page_container
             #dcc.Location(id='url', refresh=False),
             #html.Div(id='page-content'),
     ]
