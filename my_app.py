@@ -2,9 +2,16 @@
 import dash
 from dash import Dash, dcc, html, page_registry, page_container
 import os
+import numpy as np
+import pandas as pd
+import xarray as xr
 
 thisPath = os.path.abspath(os.path.dirname(__file__))
 print(dash.__version__)
+print(np.__version__)
+print(pd.__version__)
+print(xr.__version__)
+
 app = Dash(__name__, use_pages=True)
 
 server = app.server

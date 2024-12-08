@@ -3,6 +3,8 @@ from dash import dcc, html, dash_table, callback, Input, Output
 import pandas as pd
 import plotly.express as px
 import os
+# import numpy as np
+# print(np.__version__)
 
 dash.register_page(__name__)
 
