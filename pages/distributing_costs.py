@@ -6,10 +6,10 @@ import plotly.express as px
 import plotly.graph_objs as go
 import os
 from decimal import Decimal
-import dash_bootstrap_components as dbc
+#import dash_bootstrap_components as dbc
 
-import xlsxwriter
-import openpyxl
+#import xlsxwriter
+#import openpyxl
 
 dash.register_page(__name__)
 
