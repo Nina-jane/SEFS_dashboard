@@ -2,6 +2,7 @@
 import dash
 from dash import Dash, dcc, html, page_registry, page_container
 import os
+import dash_bootstrap_components as dbc
 #import numpy as np
 #import pandas as pd
 #import xarray as xr
@@ -11,6 +12,7 @@ print(dash.__version__)
 #print(np.__version__)
 #print(pd.__version__)
 #print(xr.__version__)
+print(dbc.__version__)
 
 app = Dash(__name__, use_pages=True)
 
