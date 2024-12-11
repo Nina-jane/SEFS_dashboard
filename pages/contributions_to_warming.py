@@ -64,9 +64,9 @@ layout = html.Div([
                 className="user-selections-party-p1",#id='grid-container',
                 children=[
                     html.Div([
-                        html.H1('RQ1: What are countries\' contributions to warming?'),
+                        html.H1('RQ1: What are countries\' historical contributions to global warming?'),
 
-                        html.H4('Country'), #className="selector-def"),
+                        html.H4('Country to highlight'), #className="selector-def"),
                         dcc.Dropdown(id='country-dropdown-warming',
                                     options=[{'label': i, 'value': i} for i in total_country_options],
                                     value=total_country_options[19]), #73),

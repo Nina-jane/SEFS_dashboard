@@ -64,14 +64,14 @@ layout = html.Div([
                 className="user-selections-party-p1",
                 children=[
                     html.Div([
-                        html.H1('RQ3: How should emissions rights and warming rights be distributed?', style={'textAlign': 'left'}),
+                        html.H1('RQ3: How should emissions rights and warming rights be distributed between countries?', style={'textAlign': 'left'}),
                         
                         # html.Label('Country'), #className="selector-def"),
                         # dcc.Dropdown(id='country-to-highlight',
                         #     options = ((((df.Code).dropna()).sort_values(ascending=True))).unique().astype(str),
                         #     value = ((((df.Code).dropna()).sort_values(ascending=True))).unique().astype(str)),
 
-                        html.Label('Country'), #className="selector-def"),
+                        html.Label('Country to highlight'), #className="selector-def"),
                         dcc.Dropdown(id='country-highlight',
                                     options=[{'label': i, 'value': i} for i in country_highlight_options],
                                     value=country_highlight_options[28]), #73),
@@ -578,7 +578,7 @@ def historical_use_graph(country_to_highlight,principle_choice, dataset_choice, 
         #sorted_data = ey_data.sort_values('Temp_difference', ascending=False)
 
         #y_axis_data = 'Temp_difference'
-        #graph_title = f"Countries' historical shares of warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice} accounting framework<br>with data from the {dataset_choice} datasets"
+        graph_title = f"Countries' historical shares of warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice} accounting framework<br>with data from the {dataset_choice} datasets"
         
     else:
         # Just add the greenhouse gas values together for now
@@ -592,7 +592,7 @@ def historical_use_graph(country_to_highlight,principle_choice, dataset_choice, 
         sorted_data = data2.sort_values('Value', ascending=False)
         
         #y_axis_data = 'Value'
-        #graph_title = f"Countries' historical shares of {ghg_choice} emissions (in kt) between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice} accounting framework<br>with data from the {dataset_choice} dataset"
+        graph_title = f"Countries' historical shares of {ghg_choice} emissions (in kt) between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice} accounting framework<br>with data from the {dataset_choice} dataset"
 
     #### Have added in new code here!!!    
     # Second step: calculate per capita amounts, for those principles that need it
@@ -605,11 +605,11 @@ def historical_use_graph(country_to_highlight,principle_choice, dataset_choice, 
         data_with_person_years = data_with_person_years.sort_values('Historical_per_capita', ascending=False)
         sorted_data = data_with_person_years
         y_axis_data = 'Historical_per_capita'
-        #graph_title = f"Countries' cumulative historical per cumulative capita warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice} accounting framework<br>with data from the {dataset_choice} datasets"
+        graph_title = f"Countries' cumulative historical per cumulative capita warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice} accounting framework<br>with data from the {dataset_choice} datasets"
         # print("HPCCW")
         # print(len(sorted_data))
 
-        graph_title = f"(C)"
+        #graph_title = f"(C)"
     
     elif ("HCPCCE" in principle_choice): # This is HCPCCE
         data_with_person_years = sorted_data.merge(historical_person_years[['Code','Historical_person_years']],left_on='Code', right_on='Code')
@@ -684,9 +684,9 @@ def historical_use_graph(country_to_highlight,principle_choice, dataset_choice, 
 
         sorted_data = df_with_all_info.sort_values('EPC_budget', ascending=False)
         y_axis_data = 'EPC_budget'
-        #graph_title = f"Countries' equal per capita shares of warming (in \N{DEGREE SIGN}C) based upon historical {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, under the {accounting_choice}<br>accounting framework with data from the {dataset_choice} datasets"
+        graph_title = f"Countries' equal per capita shares of warming (in \N{DEGREE SIGN}C) based upon historical {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, under the {accounting_choice}<br>accounting framework with data from the {dataset_choice} datasets"
 
-        graph_title = f"(A)"
+        #graph_title = f"(A)"
 
     elif ("ECPCCE" in principle_choice): # This is ECPCCE
         
@@ -753,9 +753,9 @@ def historical_use_graph(country_to_highlight,principle_choice, dataset_choice, 
     elif (("Grandfathering" in principle_choice) & ("warming" in principle_choice)): # This is Grandfathering (warming rights)
         sorted_data = sorted_data
         y_axis_data = 'Temp_difference'
-        #graph_title = f"Countries' historical warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice}<br>accounting framework with data from the {dataset_choice} datasets"
+        graph_title = f"Countries' historical warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice}<br>accounting framework with data from the {dataset_choice} datasets"
 
-        graph_title = f"(E)"
+        #graph_title = f"(E)"
         #print(sorted_data)
         #print("Grandfathering (warming rights)")
         #print(len(sorted_data))
@@ -943,9 +943,9 @@ def rights_to_future_budget_graph(principle_choice, dataset_choice, accounting_c
         data_with_person_years = data_with_person_years.sort_values('Historical_per_capita', ascending=False)
         sorted_data = data_with_person_years
         y_axis_data = 'Historical_per_capita'
-        #graph_title = f"Countries' cumulative historical per cumulative capita warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice} accounting framework<br>with data from the {dataset_choice} datasets"
+        graph_title = f"Countries' cumulative historical per cumulative capita warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice} accounting framework<br>with data from the {dataset_choice} datasets"
         
-        graph_title = f"(B)"
+        #graph_title = f"(B)"
         # print("HPCCW")
         # print(len(sorted_data))
     
@@ -1022,9 +1022,9 @@ def rights_to_future_budget_graph(principle_choice, dataset_choice, accounting_c
 
         sorted_data = df_with_all_info.sort_values('EPC_budget', ascending=False)
         y_axis_data = 'EPC_budget'
-        #graph_title = f"Countries' equal per capita shares of warming (in \N{DEGREE SIGN}C) based upon historical {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, under the {accounting_choice}<br>accounting framework with data from the {dataset_choice} datasets"
+        graph_title = f"Countries' equal per capita shares of warming (in \N{DEGREE SIGN}C) based upon historical {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, under the {accounting_choice}<br>accounting framework with data from the {dataset_choice} datasets"
 
-        graph_title = f"(B)"
+        #graph_title = f"(B)"
 
     elif ("ECPCCE" in principle_choice): # This is ECPCCE
         
@@ -1091,11 +1091,11 @@ def rights_to_future_budget_graph(principle_choice, dataset_choice, accounting_c
     elif (("Grandfathering" in principle_choice) & ("warming" in principle_choice)): # This is Grandfathering (warming rights)
         sorted_data = sorted_data
         y_axis_data = 'Temp_difference'
-        #graph_title = f"Countries' historical warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice}<br>accounting framework with data from the {dataset_choice} datasets"
+        graph_title = f"Countries' historical warming (in \N{DEGREE SIGN}C) from {ghg_choice} emissions between {time_interval_selector_rights[0]} and {time_interval_selector_rights[1]}, based on the {accounting_choice}<br>accounting framework with data from the {dataset_choice} datasets"
         #print(sorted_data)
         #print("Grandfathering (warming rights)")
         #print(len(sorted_data))
-        graph_title = f"(F)"
+        #graph_title = f"(F)"
 
     else:   # This is Grandfathering (emissions rights)
         sorted_data = sorted_data

@@ -56,12 +56,10 @@ layout = html.Div([
                 className="user-selections-party-p1",
                 children=[
                     html.Div([
-                        html.H1('RQ2: How should the costs of climate change be distributed?'),
+                        html.H1('RQ2: How should the costs of climate change be distributed between countries?'),
                         #html.P(['''This page shows how the costs of climate change (whether they be mitigation, adaptation or loss and damage) ought to be divided amongst countries,
                         #according to the following three principles''']),
-                        html.Label('Climate finance amount to be divided between countries / nation states'),
-                        html.Br(),
-                        html.Br(),
+                        html.Label('Climate finance amount to be divided between countries'),
                         dcc.Dropdown(
                             id='finance-amount',
                             options=[{'label': i, 'value': i} for i in costDictionary.keys()],
@@ -579,24 +577,24 @@ def costs_PPP_graph(principle_choice, dataset_choice, accounting_choice, sector_
 
         graph_title = f"Countries' fair shares of the {finance_goal} finance goal according to the {principle_choice} Principle based on {accounting_choice} warming in (\N{DEGREE SIGN}C) from {ghg_choice}<br>between {time_interval_selector[0]} and {time_interval_selector[1]}, with data from the {dataset_choice} dataset"
 
-        if ((((dataset_choice == 'CEDS, Houghton & Nassikas (2017) - All GHGs') & (ghg_choice == 'All_GHGs'))) | ((dataset_choice == 'Eora-26') & (accounting_choice == 'Production-based')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Total GHG emissions with LULUCF'))): 
-            graph_title = f"(A)"
-        elif ((((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'CO2'))) | ((dataset_choice == 'Eora-26') & (accounting_choice == 'Consumption-based')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Total GHG emissions without LULUCF'))): 
-            graph_title = f"(B)"
-        elif (((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'CH4')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Energy'))):  
-            graph_title = f"(C)"
-        #elif ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Waste')):
-        #    graph_title = f"(C)"
-        elif (((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'NOx')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Industrial Processes and Product Use'))): 
-            graph_title = f"(D)"
-        #elif ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Industrial Processes and Product Use')):
-        #    graph_title = f"(D)"
-        elif ((dataset_choice == 'UNFCCC') & (ghg_choice == 'CH4')):
-            graph_title = f"(E)"
-        elif ((dataset_choice == 'UNFCCC') & (ghg_choice == 'N2O')):
-            graph_title = f"(F)"    
-        else:
-            graph_title = f"(G)"
+        # if ((((dataset_choice == 'CEDS, Houghton & Nassikas (2017) - All GHGs') & (ghg_choice == 'All_GHGs'))) | ((dataset_choice == 'Eora-26') & (accounting_choice == 'Production-based')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Total GHG emissions with LULUCF'))): 
+        #     graph_title = f"(A)"
+        # elif ((((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'CO2'))) | ((dataset_choice == 'Eora-26') & (accounting_choice == 'Consumption-based')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Total GHG emissions without LULUCF'))): 
+        #     graph_title = f"(B)"
+        # elif (((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'CH4')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Energy'))):  
+        #     graph_title = f"(C)"
+        # #elif ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Waste')):
+        # #    graph_title = f"(C)"
+        # elif (((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'NOx')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Industrial Processes and Product Use'))): 
+        #     graph_title = f"(D)"
+        # #elif ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Industrial Processes and Product Use')):
+        # #    graph_title = f"(D)"
+        # elif ((dataset_choice == 'UNFCCC') & (ghg_choice == 'CH4')):
+        #     graph_title = f"(E)"
+        # elif ((dataset_choice == 'UNFCCC') & (ghg_choice == 'N2O')):
+        #     graph_title = f"(F)"    
+        # else:
+        #     graph_title = f"(G)"
 
     else:
         data2 = data2.groupby(['Country','Code'])['Value'].sum().reset_index()
@@ -605,24 +603,24 @@ def costs_PPP_graph(principle_choice, dataset_choice, accounting_choice, sector_
 
         graph_title = f"Countries' fair shares of the {finance_goal} finance goal according to the {principle_choice} Principle based on {accounting_choice} emissions from {ghg_choice}<br>between {time_interval_selector[0]} and {time_interval_selector[1]}, with data from the {dataset_choice} dataset"
 
-        if ((((dataset_choice == 'CEDS, Houghton & Nassikas (2017) - All GHGs') & (ghg_choice == 'All_GHGs'))) | ((dataset_choice == 'Eora-26') & (accounting_choice == 'Production-based')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Total GHG emissions with LULUCF'))): 
-            graph_title = f"(A)"
-        elif ((((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'CO2'))) | ((dataset_choice == 'Eora-26') & (accounting_choice == 'Consumption-based')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Total GHG emissions without LULUCF'))): 
-            graph_title = f"(B)"
-        elif (((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'CH4')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Energy'))):  
-            graph_title = f"(C)"
-        #elif ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Waste')):
-        #    graph_title = f"(C)"
-        elif (((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'NOx')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Industrial Processes and Product Use'))): 
-            graph_title = f"(D)"
-        #elif ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Industrial Processes and Product Use')):
-        #    graph_title = f"(D)"
-        elif ((dataset_choice == 'UNFCCC') & (ghg_choice == 'CH4')):
-            graph_title = f"(E)"
-        elif ((dataset_choice == 'UNFCCC') & (ghg_choice == 'N2O')):
-            graph_title = f"(F)"    
-        else:
-            graph_title = f"(G)"
+        # if ((((dataset_choice == 'CEDS, Houghton & Nassikas (2017) - All GHGs') & (ghg_choice == 'All_GHGs'))) | ((dataset_choice == 'Eora-26') & (accounting_choice == 'Production-based')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Total GHG emissions with LULUCF'))): 
+        #     graph_title = f"(A)"
+        # elif ((((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'CO2'))) | ((dataset_choice == 'Eora-26') & (accounting_choice == 'Consumption-based')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Total GHG emissions without LULUCF'))): 
+        #     graph_title = f"(B)"
+        # elif (((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'CH4')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Energy'))):  
+        #     graph_title = f"(C)"
+        # #elif ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Waste')):
+        # #    graph_title = f"(C)"
+        # elif (((dataset_choice == 'CEDS, Houghton & Nassikas (2017)') & (ghg_choice == 'NOx')) | ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Industrial Processes and Product Use'))): 
+        #     graph_title = f"(D)"
+        # #elif ((dataset_choice == 'UNFCCC') & (sector_single_choice == 'Industrial Processes and Product Use')):
+        # #    graph_title = f"(D)"
+        # elif ((dataset_choice == 'UNFCCC') & (ghg_choice == 'CH4')):
+        #     graph_title = f"(E)"
+        # elif ((dataset_choice == 'UNFCCC') & (ghg_choice == 'N2O')):
+        #     graph_title = f"(F)"    
+        # else:
+        #     graph_title = f"(G)"
 
     print(sorted_data)
 
@@ -703,30 +701,30 @@ def costs_APP_BPP_graph(principle_choice, dataset_choice, metric_choice, year_ch
 
     graph_title = f"Countries' fair shares of the {finance_goal} finance goal according to the {principle_choice} Principle based on {year_choice} {metric_choice} data from the {dataset_choice}"
 
-    if (principle_choice == 'Ability to Pay'):
-        if (metric_choice == 'GDP'): 
-            graph_title = f"(A)"
-        elif (metric_choice == 'GNI'):
-            graph_title = f"(B)"
-        elif (metric_choice == 'GDP per capita'):
-            graph_title = f"(C)"
-        elif (metric_choice == 'GNI per capita'):
-            graph_title = f"(D)"
-        else:
-            graph_title = f"(E)"
-    elif (principle_choice == 'Beneficiary Pays'):
-        if ((metric_choice == 'Total wealth') & (year_choice == 1995)):
-            graph_title = f"(A)"
-        elif ((metric_choice == 'Total wealth') & (year_choice == 2018)):
-            graph_title = f"(B)"
-        elif ((metric_choice == 'Total wealth per capita') & (year_choice == 1995)):
-            graph_title = f"(C)"
-        elif ((metric_choice == 'Total wealth per capita') & (year_choice == 2018)):
-            graph_title = f"(D)"
-        else:
-            graph_title = f"(E)"
-    else:
-        graph_title = graph_title
+    # if (principle_choice == 'Ability to Pay'):
+    #     if (metric_choice == 'GDP'): 
+    #         graph_title = f"(A)"
+    #     elif (metric_choice == 'GNI'):
+    #         graph_title = f"(B)"
+    #     elif (metric_choice == 'GDP per capita'):
+    #         graph_title = f"(C)"
+    #     elif (metric_choice == 'GNI per capita'):
+    #         graph_title = f"(D)"
+    #     else:
+    #         graph_title = f"(E)"
+    # elif (principle_choice == 'Beneficiary Pays'):
+    #     if ((metric_choice == 'Total wealth') & (year_choice == 1995)):
+    #         graph_title = f"(A)"
+    #     elif ((metric_choice == 'Total wealth') & (year_choice == 2018)):
+    #         graph_title = f"(B)"
+    #     elif ((metric_choice == 'Total wealth per capita') & (year_choice == 1995)):
+    #         graph_title = f"(C)"
+    #     elif ((metric_choice == 'Total wealth per capita') & (year_choice == 2018)):
+    #         graph_title = f"(D)"
+    #     else:
+    #         graph_title = f"(E)"
+    # else:
+    #     graph_title = graph_title
 
     fig = px.bar(data2,
                  x='Code',
