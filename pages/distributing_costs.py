@@ -56,7 +56,7 @@ layout = html.Div([
                 className="user-selections-party-p1",
                 children=[
                     html.Div([
-                        html.H1('RQ2: How should the costs of climate change be distributed between countries?'),
+                        html.H1('RQ2: How the costs for mitigating climate change ought to be distributed between countries?'),
                         #html.P(['''This page shows how the costs of climate change (whether they be mitigation, adaptation or loss and damage) ought to be divided amongst countries,
                         #according to the following three principles''']),
                         html.Label('Climate finance amount to be divided between countries'),
