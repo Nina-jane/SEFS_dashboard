@@ -64,7 +64,7 @@ layout = html.Div([
                 className="user-selections-party-p1",
                 children=[
                     html.Div([
-                        html.H1('RQ3: How should emissions rights and warming rights be distributed between countries?', style={'textAlign': 'left'}),
+                        html.H1('RQ3: How warming (or emissions) rights ought to be distributed between countries?', style={'textAlign': 'left'}),
                         
                         # html.Label('Country'), #className="selector-def"),
                         # dcc.Dropdown(id='country-to-highlight',
