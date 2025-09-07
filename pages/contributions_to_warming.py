@@ -260,8 +260,8 @@ def warming_graph(country_choice, ghg_all_choice, ghg_choice, start_year_choice,
 
     sorted_data = sorted_data.reset_index()
     sorted_data = sorted_data.fillna(0)
-    print('sorted data')
-    print(sorted_data)
+    #print('sorted data')
+    #print(sorted_data)
 
     if (country_all_choice != 'All countries'):
         country_amount_choice = number_of_countries.get(country_amount)
@@ -323,7 +323,7 @@ def warming_graph(country_choice, ghg_all_choice, ghg_choice, start_year_choice,
 
     data_for_table['Temp_difference'] = data_for_table['Temp_difference'].map('{:,.3f}'.format)
     data_for_table['Rank'] = range(1, len(data_for_table)+ 1)
-    print(data_for_table)
+    #print(data_for_table)
 
     data_for_table = data_for_table[['Rank', 'Country', 'Code', 'Temp_difference']]
     

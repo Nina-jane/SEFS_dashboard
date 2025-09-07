@@ -539,7 +539,7 @@ def costs_PPP_graph(principle_choice, dataset_choice, accounting_choice, sector_
         data = df_PPP.loc[(df_PPP.Principle.apply(lambda x: x == principle_choice)) & (df_PPP.Dataset.apply(lambda x: x == dataset_choice)) & (df_PPP.Accounting.apply(lambda x: x == accounting_choice)) & (df_PPP.Sector.apply(lambda x: x == sector_single_choice)) & (df_PPP.Gas.apply(lambda x: x == ghg_choice)) & (df_PPP.Metric.apply(lambda x: x == metric_choice)) & (df_PPP.Year.isin(year_range))]
         data2 = data.reset_index()
 
-    print(data2)
+    #print(data2)
 
     # In here you're going to need to sum greenhouse gas amounts over multiple years and add them together.
     # Do some kind of test. If there are multiple greenhouse gases and a metric has been selected, you need to do something different.
@@ -622,7 +622,7 @@ def costs_PPP_graph(principle_choice, dataset_choice, accounting_choice, sector_
         # else:
         #     graph_title = f"(G)"
 
-    print(sorted_data)
+    #print(sorted_data)
 
     if (country_all_choice != 'All countries'):
         country_amount_choice = number_of_countries.get(country_amount)
