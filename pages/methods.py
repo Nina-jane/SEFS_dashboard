@@ -14,6 +14,14 @@ layout = html.Div([
         #]
         html.H1('Methods', style={'textAlign': 'left'}),
         html.P(['''Here are the methods that have been used to create this dashboard.''',
+        html.P(['''Creating the SEFS dashboard has involved drawing upon knowledge and methods from four main disciplines, including:''']),
+        html.P(['''- Climate science''']),
+        html.P(['''- Industrial ecology''']),
+        html.P(['''- Applied ethics''']),
+        html.P(['''- Data science''']),
+
+        html.P(['''The specific methods from each of these disciplines are named and described in the table below.''']),
+
         # html.H2(['Methodological approach']),
         # html.P(['''This research spans the domains of climate science, climate economics and climate ethics. A wide range of methods have been used to gain insights from the data. These are listed below.
         #         -	Input-output analysis
