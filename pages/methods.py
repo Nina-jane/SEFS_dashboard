@@ -1,9 +1,15 @@
 import dash
-from dash import html
+from dash import html, dash_table
+import pandas as pd
+import os
 
 dash.register_page(__name__)
 
+thisPath = os.path.abspath(os.path.dirname(__file__))
+
 image_path = 'assets/rights_diagram.png'
+
+df = pd.read_csv('methods_table.csv')
 
 layout = html.Div([
 
@@ -21,6 +27,8 @@ layout = html.Div([
         html.P(['''- Data science''']),
 
         html.P(['''The specific methods from each of these disciplines are named and described in the table below.''']),
+
+        dash_table.DataTable(df.to_dict('records'),[{"name": i, "id": i} for i in df.columns]),
 
         # html.H2(['Methodological approach']),
         # html.P(['''This research spans the domains of climate science, climate economics and climate ethics. A wide range of methods have been used to gain insights from the data. These are listed below.

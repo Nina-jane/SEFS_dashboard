@@ -1,14 +1,13 @@
 # Import libraries
 from dash import Dash, dcc, html, page_registry, page_container
-import dash_bootstrap_components as dbc
 import os
 #import dash_bootstrap_components as dbc
 #import numpy as np
 #import pandas as pd
 #import xarray as xr
 
-#import sys
-#print(sys.executable)
+import sys
+print(sys.executable)
 print('hello')
 
 thisPath = os.path.abspath(os.path.dirname(__file__))
