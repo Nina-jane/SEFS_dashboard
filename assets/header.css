@@ -22,6 +22,15 @@ body {
   margin: 20px;
 }
 
+#methods-container {
+  height: 937px;
+  width: 750px;
+  #background-color:#3BA27A;  
+  float: left;
+  margin: 20px;
+
+}
+
 #right-container {
   margin-left: 680px;
 }
@@ -283,4 +292,3 @@ a:hover {
 .rc-slider-mark-text {
     transform: rotate(90deg);
 }
-

@@ -1,15 +1,15 @@
 import dash
 from dash import html, dash_table
 import pandas as pd
-import os
+#import os
 
 dash.register_page(__name__)
 
-thisPath = os.path.abspath(os.path.dirname(__file__))
+#thisPath = os.path.abspath(os.path.dirname(__file__))
 
 image_path = 'assets/rights_diagram.png'
 
-df = pd.read_csv('methods_table.csv')
+df = pd.read_csv('methods_table.csv', encoding='cp1252')
 
 layout = html.Div([
 
@@ -19,16 +19,33 @@ layout = html.Div([
         #    html.Div('Methodology', className="app-header--title")
         #]
         html.H1('Methods', style={'textAlign': 'left'}),
-        html.P(['''Here are the methods that have been used to create this dashboard.''',
-        html.P(['''Creating the SEFS dashboard has involved drawing upon knowledge and methods from four main disciplines, including:''']),
-        html.P(['''- Climate science''']),
-        html.P(['''- Industrial ecology''']),
-        html.P(['''- Applied ethics''']),
-        html.P(['''- Data science''']),
+        html.P(['''Creating the SEFS dashboard involved drawing upon knowledge and methods from four main disciplines, including:''']),
+        html.Li(['''Climate science''']),
+        html.Li(['''Industrial ecology''']),
+        html.Li(['''Applied ethics''']),
+        html.Li(['''Data science''']),
 
         html.P(['''The specific methods from each of these disciplines are named and described in the table below.''']),
 
-        dash_table.DataTable(df.to_dict('records'),[{"name": i, "id": i} for i in df.columns]),
+        dash_table.DataTable(df.to_dict('records'),[{"name": i, "id": i} for i in df.columns],
+                             style_header={
+                                 'fontWeight': 'bold'
+                             },
+                             style_cell={
+                                 'whiteSpace': 'normal',
+                                 'height': 'auto',
+                                 #'maxWidth': '700px',
+                                 'font_family': 'Arial',
+                                 'font_size': '16px',
+                                 'text-align': 'left'
+                             },
+                             style_data_conditional=[{
+                                 "if": {"column_id": 'Discipline'},
+                                 "fontWeight": "bold",
+                             }],
+        ),
+
+        html.H2('Calculations')
 
         # html.H2(['Methodological approach']),
         # html.P(['''This research spans the domains of climate science, climate economics and climate ethics. A wide range of methods have been used to gain insights from the data. These are listed below.
@@ -42,5 +59,5 @@ layout = html.Div([
         #         ''']),
         # # See if you can insert the "rights diagram" picture here
         # html.Img(src=image_path, style={'height':'130%', 'width':'130%'})
-        ], style={'textAlign': 'left'})], id='left-container')
-])
+    ], style={'textAlign': 'left'})], id='methods-container'
+)
