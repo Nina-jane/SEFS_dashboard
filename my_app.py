@@ -6,8 +6,8 @@ import os
 #import pandas as pd
 #import xarray as xr
 
-import sys
-print(sys.executable)
+# import sys
+# print(sys.executable)
 print('hello')
 
 thisPath = os.path.abspath(os.path.dirname(__file__))
