@@ -19,7 +19,7 @@ layout = html.Div([
         #    html.Div('Methodology', className="app-header--title")
         #]
         html.H1('Methods', style={'textAlign': 'left'}),
-        html.P(['''Creating the SEFS dashboard involved drawing upon knowledge and methods from four main disciplines, including:''']),
+        html.P(['''Creating the SEFS dashboard involved drawing upon knowledge and methods from the following four disciplines:''']),
         html.Li(['''Climate science''']),
         html.Li(['''Industrial ecology''']),
         html.Li(['''Applied ethics''']),
