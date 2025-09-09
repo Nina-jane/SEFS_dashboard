@@ -85,21 +85,39 @@ layout = html.Div([
             ),
             html.Div(id="accordion-contents", className="mt-3"),
         ]),
-            
-        dcc.Markdown('$W_{\\text{warming}_T} = \sum_{y=1850}^{2014} \sum_{i=1}^{174} C_{\\text{warming}_{iy}}, \quad T = \\text{choice of the range of } y$', mathjax=True, style={'textAlign': 'center'}),
-
-        dcc.Markdown('$C\\text{Share}_{iT} = \\frac{C_{\\text{warming}_{iT}}}{W_{\\text{warming}_T}} \cdot F_{\\text{Goal}}, \quad F_{\\text{Goal}} \in \{100,\ 50,\ 25,\ 20,\ 15\}$', mathjax=True, style={'textAlign': 'center'}),      
-
-        #dcc.Markdown('Add text $x=\\frac{-b\\pm\\sqrt{b^2-41c}}{2a}$', mathjax=True, style={'textAlign': 'center'}),
 
         html.H3('For answering RQ2'),
 
         html.P(['''To calculate countries' shares of a collective climate mitigation finance goal, several ethical principles were applied. The equations below
                 show the calculations that were performed to apply each of the principles.''']),
 
+        html.H4('Polluter Pays equations'),
+            
+        dcc.Markdown('$W_{\\text{warming}_T} = \sum_{y=1850}^{2014} \sum_{i=1}^{174} C_{\\text{warming}_{iy}}, \quad T = \\text{choice of the range of } y \\tag{3}$', mathjax=True, style={'textAlign': 'left'}),
+
+        dcc.Markdown('$C\\text{Share}_{iT} = \\frac{C_{\\text{warming}_{iT}}}{W_{\\text{warming}_T}} \cdot F_{\\text{Goal}}, \quad F_{\\text{Goal}} \in \{100,\ 50,\ 25,\ 20,\ 15\} \\tag{4}$', mathjax=True, style={'textAlign': 'left'}),      
+
+        #dcc.Markdown('Add text $x=\\frac{-b\\pm\\sqrt{b^2-41c}}{2a}$', mathjax=True, style={'textAlign': 'center'}),
+
+        html.H4('Beneficiary Pays equations'),
+
+        dcc.Markdown('$W_{\\text{wealth}_y} = \sum_{i=1}^{217} C_{\\text{wealth}_{iy}}, \quad y \in [1995, 2018]$', mathjax=True, style={'textAlign': 'left'}),
+
+        dcc.Markdown('$CShare_{iy} = \\frac{C_{\\text{wealth}_{iy}}}{W_{\\text{wealth}_y}} \\times FGoal, \quad FGoal \in \{100, 50, 25, 20, 15\} \\tag{5}$', mathjax=True, style={'textAlign': 'left'}),
+
+        html.H4('Ability to Pay equations'),
+
+        dcc.Markdown('$W_{\\text{GDP}} = \sum_{i=1}^{219} C_{\\text{GDP}_i}$', mathjax=True, style={'textAlign': 'left'}),
+
+        dcc.Markdown('$CShare_i = \\frac{C_{\\text{GDP}_i}}{W_{\\text{GDP}}} \\times FGoal, \quad FGoal \in \{100, 50, 25, 20, 15\} \\tag{6}$', mathjax=True, style={'textAlign': 'left'}),
+
         html.H3('For answering RQ3'),
 
-        html.P(['''To calculate countries' shares of remaining emissions and warming rights, two principles were applied using the following equations:''']),  
+        html.P(['''To calculate countries' shares of remaining emissions and warming rights, two principles were applied using the following equations:''']),
+
+        html.H4('Grandfathering equations'),
+
+        html.H4('Equality-over-time equations'), 
 
     ], style={'textAlign': 'left'},  id='mid-container-methods')
 

@@ -337,8 +337,8 @@ a:hover {
 
 .active:after {
   content: "\2796"; /* Unicode character for "minus" sign (-) */
-  font-size: 13px;
+  /* font-size: 13px;
   color: #1316c2;
   float: left;
-  margin-left: 5px;
+  margin-left: 5px; */
 }

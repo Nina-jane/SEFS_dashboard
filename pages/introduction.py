@@ -18,13 +18,17 @@ layout = html.Div([
                             '''Welcome to the Science and Ethics of Fair Shares (SEFS) dashboard.''', html.Br(),html.Br(),'''
                             This dashboard is the output of a doctoral research project, which sought to answer the following overarching research question (RQ):''', html.Br(),html.Br(),''' 
                             Can applying ethical distributional principles within a dashboard shed light on nation-state effort-sharing for addressing climate change?''', html.Br(),html.Br(),'''
-                            Pages 2-4 focus on answering the following three sub RQs:''', html.Br(),html.Br(),'''        
-                            RQ1: What are countries\' historical contributions to global warming?''', html.Br(),'''   
-                            RQ2: How should the costs of climate change be distributed between countries?''', html.Br(),'''   
-                            RQ3: How should rights to emit and warming rights be distributed between countries?''', html.Br(),html.Br(),html.Br(),'''      
+                            Pages 2-4 focus on answering the following three sub RQs:''', html.Br(),html.Br(),
+                        ]), 
+                        html.Div([
+                        html.Li(['''RQ1: What are countries\' historical contributions to global warming?''']),
+                        html.Li(['''RQ2: How should the costs of climate change be distributed between countries?''']),
+                        html.Li(['''RQ3: How should rights to emit and warming rights be distributed between countries?''']),
+                        ], style={'margin-left': '40px'}),           
 
-                            The dashboard has been developed with the communities of international climate change negotiators and policymakers in mind. These communities will continue grappling with these questions and possible effort-sharing approaches for addressing climate change equitably at the international level.'''], style={'textAlign': 'left'}
-                            ),
+                        html.P([
+                            '''The dashboard has been developed with the communities of international climate change negotiators and policymakers in mind. These communities will continue grappling with these questions and possible effort-sharing approaches for addressing climate change equitably at the international level.'''],
+                            style={'textAlign': 'left'})
                         # html.Button("Update"),
                         ], id='left-container'),
                         # html.Div([
