@@ -17,7 +17,7 @@ layout = html.Div([
     #     ], style={'textAlign': 'left'})], id='left-container'),
 
     html.Div([
-        html.H1('References & further Information', style={'textAlign': 'left'}),
+        html.H1('References & further information', style={'textAlign': 'left'}),
         html.P('''This page contains links to similar tools and relevant articles and studies that consider similar questions to RQ1, RQ2 and RQ3. These references have influenced and provided inspiration for the Science and Ethics of Fair Shares (SEFS) dashboard and its design. The data sources that the SEFS dashboard draws on are also listed. '''),
         html.H2('Similar tools'),
         html.P('''Below are links to seven similar, dashboard-style tools and multi-country assessments. Many have a focus on fairness and equity, but seek to answer slightly different questions to those that the SEFS dashboard is focussed on.'''),
