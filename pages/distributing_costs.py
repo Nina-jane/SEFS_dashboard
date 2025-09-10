@@ -633,20 +633,28 @@ def costs_PPP_graph(principle_choice, dataset_choice, accounting_choice, sector_
 
     
 
-    fig = px.bar(sorted_data,
-                 x='Code',
-                 y='Finance_share',
-                 #labels=["Country","Cost $US billions"],
-                 title= graph_title,
-                 labels=dict(x="Contribution US$"),
-                 color=sorted_data['Code'],
-                 color_discrete_sequence = color_discrete_sequence
-                 )
+    # fig = px.bar(sorted_data,
+    #              x='Code',
+    #              y='Finance_share',
+    #              #labels=["Country","Cost $US billions"],
+    #              title= graph_title,
+    #              labels=dict(x="Contribution US$"),
+    #              color=sorted_data['Code'],
+    #              color_discrete_sequence = color_discrete_sequence
+    #              )
     
-    fig.update_xaxes(showgrid=False)
-    fig.update_yaxes(showgrid=False)
-    fig.update_layout(plot_bgcolor = "white")
-    fig.update_layout(xaxis_title="Country code", yaxis_title="Cost (US$ billions)")
+    fig = px.choropleth(sorted_data,
+        locations='Code',
+        color='Finance_share',
+        scope='world',
+        locationmode='ISO-3',
+        color_continuous_scale="Viridis", # Choose a color scale
+        title='Countries'' climate finance shares')
+    
+    # fig.update_xaxes(showgrid=False)
+    # fig.update_yaxes(showgrid=False)
+    # fig.update_layout(plot_bgcolor = "white")
+    # fig.update_layout(xaxis_title="Country code", yaxis_title="Cost (US$ billions)")
 
     data_for_table = sorted_data
     data_for_table['Finance_share'] = data_for_table['Finance_share']/1000000000
