@@ -649,7 +649,7 @@ def costs_PPP_graph(principle_choice, dataset_choice, accounting_choice, sector_
         scope='world',
         locationmode='ISO-3',
         color_continuous_scale="Viridis", # Choose a color scale
-        title='Countries'' climate finance shares')
+        title='Countries\' climate finance shares')
     
     # fig.update_xaxes(showgrid=False)
     # fig.update_yaxes(showgrid=False)
