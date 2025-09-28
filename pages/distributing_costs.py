@@ -30,7 +30,7 @@ costDictionary = {
 }
 options=[{'label': i, 'value': i} for i in costDictionary.items()]
 
-principles = ['Ability to Pay', 'Beneficiary Pays', 'Polluter Pays']
+principles = ['Ability to Pay', 'Beneficiary Pays', 'Polluter Pays', 'Ability to Pay - Clustered charts', 'Beneficiary Pays - Clustered charts']
 
 radio_country_options = ['All countries', 'Some other number of countries']
 radio_sector_options = ['All sectors', 'Single sector']
@@ -213,6 +213,39 @@ layout = html.Div([
 
                         ], style= {'display': 'block'}), # <-- This is the line that will be changed by the dropdown callback
 
+                        # This one will update the metric dropdown for the Clustered charts
+                        html.Div(id='clustered-choices-container', children=[
+                            # html.Label('Dataset'),
+                            # dcc.Dropdown(
+                            #     id='dataset-dropdown-app-bpp',
+                            #     options = df_APP_BPP.Dataset.unique(),
+                            #     value=df_APP_BPP.Dataset.unique(),
+                            #     multi=False),
+
+                            html.Label('Metric'),    
+                            dcc.Dropdown(
+                            id='metric-dropdown-clustered',
+                            options = df_APP_BPP.Metric.unique(),
+                            value= df_APP_BPP.Metric.unique(),
+                            multi=True),
+
+                            html.Label('Ranking metric'),    
+                            dcc.Dropdown(
+                            id='metric-dropdown-clustered-for-ranking',
+                            options = df_APP_BPP.Metric.unique(),
+                            value= df_APP_BPP.Metric.unique(),
+                            multi=False),
+
+                            # html.Label('Years'),
+                            # dcc.Dropdown(
+                            # id='year-dropdown-app-bpp',
+                            # options = df_APP_BPP.Year.unique(),
+                            # value= df_APP_BPP.Year.unique(),
+                            # ),
+    
+                            
+                        ], style= {'display': 'block'}), # <-- This is the line that will be changed by the dropdown callback
+
                         html.Label('Countries'),
                             dcc.RadioItems(id='country-radio-all-or-top-app-bpp',
                                     #options = df.Sector.unique(),
@@ -246,6 +279,13 @@ layout = html.Div([
                 html.Div([          
                     dcc.Graph(
                     id='costs-graph-app-bpp',style={'padding': 10})
+                ], id='right-container')
+            ], style= {'display': 'block'}), # <-- This is the line that will be changed by the dropdown callback
+
+            html.Div(id='clustered-graph-container', children=[
+                html.Div([          
+                    dcc.Graph(
+                    id='costs-graph-clustered',style={'padding': 10})
                 ], id='right-container')
             ], style= {'display': 'block'}), # <-- This is the line that will be changed by the dropdown callback
 
@@ -390,6 +430,21 @@ def set_metrics_options_for_app_and_bpp(principle_choice, dataset_choice):
     dff = df_APP_BPP.loc[df_APP_BPP.Principle.apply(lambda x: x == principle_choice) & (df_APP_BPP.Dataset.apply(lambda x: x == dataset_choice))]
     return [{'label': c, 'value': c} for c in sorted(dff.Metric.unique())]
 
+#### Making principle choice update metric choice for clustered graphs
+@callback(
+    Output('metric-dropdown-clustered', 'options'),
+    Input('principle-dropdown', 'value')
+    )
+
+def set_metrics_options_for_clustered(principle_choice):
+    if (principle_choice == 'Ability to Pay - Clustered charts'):
+        principle_choice = 'Ability to Pay'
+        dff = df_APP_BPP.loc[df_APP_BPP.Principle.apply(lambda x: x == principle_choice)]
+    else:
+        principle_choice = 'Beneficiary Pays'
+        dff = df_APP_BPP.loc[df_APP_BPP.Principle.apply(lambda x: x == principle_choice)]
+    return [{'label': c, 'value': c} for c in sorted(dff.Metric.unique())]
+
 @callback(
     Output('year-dropdown-app-bpp', 'options'),
     [Input('principle-dropdown', 'value'),
@@ -435,7 +490,7 @@ def show_hide_time_interval_selector_choices3(visibility_state):
    Input('principle-dropdown', 'value')
 )
 def show_hide_app_bpp_choices(visibility_state):
-    if visibility_state != 'Polluter Pays':
+    if (visibility_state != 'Polluter Pays') & (visibility_state != 'Ability to Pay - Clustered charts') & (visibility_state != 'Beneficiary Pays - Clustered charts'):
         return {'display': 'block'}
     return {'display': 'none'}
 
@@ -445,6 +500,15 @@ def show_hide_app_bpp_choices(visibility_state):
 )
 def show_hide_ppp_choices(visibility_state):
     if visibility_state == 'Polluter Pays':
+        return {'display': 'block'}
+    return {'display': 'none'}
+
+@callback(
+   Output('clustered-choices-container', 'style'),
+   Input('principle-dropdown', 'value')
+)
+def show_hide_clustered_choices(visibility_state):
+    if (visibility_state == 'Ability to Pay - Clustered charts') | (visibility_state == 'Beneficiary Pays - Clustered charts'):
         return {'display': 'block'}
     return {'display': 'none'}
 
@@ -494,7 +558,16 @@ def show_hide_element_ppp_graph(visibility_state):
    Input('principle-dropdown', 'value')
 )
 def show_hide_element_app_bpp_graph(visibility_state):
-    if visibility_state != 'Polluter Pays':
+    if (visibility_state != 'Polluter Pays') & (visibility_state != 'Ability to Pay - Clustered charts') & (visibility_state != 'Beneficiary Pays - Clustered charts'):
+        return {'display': 'block'}
+    return {'display': 'none'}
+
+@callback(
+   Output('clustered-graph-container', 'style'),
+   Input('principle-dropdown', 'value')
+)
+def show_hide_element_clustered_graph(visibility_state):
+    if (visibility_state == 'Ability to Pay - Clustered charts') | (visibility_state == 'Beneficiary Pays - Clustered charts'):
         return {'display': 'block'}
     return {'display': 'none'}
 
@@ -642,6 +715,16 @@ def costs_PPP_graph(principle_choice, dataset_choice, accounting_choice, sector_
     #              color=sorted_data['Code'],
     #              color_discrete_sequence = color_discrete_sequence
     #              )
+
+    if ghg_choice == 'NOx':
+        title_choropleth = '(D)'
+    elif ghg_choice == 'CO2':
+        title_choropleth = '(B)'
+    elif ghg_choice == 'CH4':
+        title_choropleth = '(C)'
+    else:
+        title_choropleth = '(A)'
+
     
     fig = px.choropleth(sorted_data,
         locations='Code',
@@ -649,7 +732,10 @@ def costs_PPP_graph(principle_choice, dataset_choice, accounting_choice, sector_
         scope='world',
         locationmode='ISO-3',
         color_continuous_scale="Viridis", # Choose a color scale
-        title='Countries\' climate finance shares')
+        title = title_choropleth,
+        #title='Countries\' climate finance shares')
+    )
+        
     
     # fig.update_xaxes(showgrid=False)
     # fig.update_yaxes(showgrid=False)
@@ -763,3 +849,160 @@ def costs_APP_BPP_graph(principle_choice, dataset_choice, metric_choice, year_ch
     #print(data_for_table[0:19])
     #return fig, data_for_table[0:10].to_dict('records')
     return fig, data_for_table.to_dict('records')
+
+@callback(
+    Output('costs-graph-clustered', 'figure'),
+    #Output('table-clustered','data'),
+    [Input('principle-dropdown', 'value'),
+    # Input('dataset-dropdown-app-bpp', 'value'),
+    Input('metric-dropdown-clustered', 'value'),
+    Input('metric-dropdown-clustered-for-ranking', 'value'),
+    # Input ('year-dropdown-app-bpp', 'value'),
+    Input('country-radio-all-or-top-app-bpp', 'value'),
+    Input ('country-amount', 'value'),
+    # Input ('finance-amount', 'value')
+    ])
+
+def costs_clustered_graph (principle_choice, metric_choice, metric_choice_for_ranking, country_all_choice, country_amount): #, dataset_choice, metric_choice, year_choice, finance_goal): #goal_choice): # ghg_choice, acc_fram_choice, principle_choice):
+    print('Principle choice:')
+    print(principle_choice)
+
+    if (principle_choice == 'Ability to Pay - Clustered charts'):
+        principle_choice = 'Ability to Pay'
+        full_data = df_APP_BPP.loc[(df_APP_BPP.Principle.apply(lambda x: x == principle_choice)) & (df_APP_BPP.Metric.isin(metric_choice))]
+    else:
+        principle_choice = 'Beneficiary Pays'
+        full_data = df_APP_BPP.loc[(df_APP_BPP.Principle.apply(lambda x: x == principle_choice)) & (df_APP_BPP.Metric.isin(metric_choice))] #& (df_APP_BPP.Metric.apply(lambda x: x == metric_choice)) & (df_APP_BPP.Year.apply(lambda x: x == year_choice))]
+    
+    #Need to make metric choice be a list of radio items or a checklist
+
+    # Now you need to normalise each type of data by creating another column in the full_data dataframe which divides each value by the sum of the values
+    category_sums = full_data.groupby('Metric')['Value'].sum()
+    category_df = category_sums.reset_index()
+    category_df.columns = ['Metric','Value2']
+    print(category_df)
+
+    full_data['Proportions'] = full_data['Metric'].map(category_df.set_index('Metric')['Value2'])
+    full_data['Final_value'] = full_data['Value']/full_data['Proportions']
+    print(full_data)
+
+
+    # Then you need to take the common countries in each dataset, using the country codes
+    # Now order countries by top10 GDP values
+
+    full_data_sorted = full_data.sort_values(by=['Metric','Final_value'], ascending=[True, False])
+
+    # Then only display the top10 countries
+
+    # Then you need to decide on the order of the countries, based on one particular metric
+
+    ############ Come back and uncomment the below once you have got the clustered bar chart working for the top 10 countries
+    # full_data = full_data.reset_index()
+    # full_data = full_data.fillna(0)
+    # total_value = sum(full_data['Value'])
+
+    # finance_choice = costDictionary.get(finance_goal)
+    # data2 = full_data
+    # data2['Value'] = (data2['Value']/total_value)*finance_choice
+    # data2 = data2.sort_values('Value',ascending=False)
+    ############ Come back and uncomment the above once you have got the clustered bar chart working for the top 10 countries
+
+    # Do a check here for if only one country has been selected
+    # Here we are checking whether all sectors have been selected or not, for the selected country
+
+    country_amount_choice = number_of_countries.get(country_amount)
+    print(country_amount_choice)
+    full_data_head = full_data_sorted.head(country_amount_choice)
+    print(full_data_head)
+    country_codes = full_data_head['Code'].unique()
+    print(country_codes)
+    print(type(country_codes))
+    #Now create a new dataset with all the metrics and these countries in it
+    #& (full_data_sorted.Metric.isin(metric_choice))
+    full_data_head_countries = full_data_sorted[full_data_sorted['Code'].isin(country_codes)] #& (full_data_sorted.Metric.isin(metric_choice)),:]
+    print(full_data_head_countries)
+    
+
+    ## Commented out the following section
+    if (country_all_choice != 'All countries'):
+        country_amount_choice = number_of_countries.get(country_amount)
+        full_data_head = full_data_head.head(country_amount_choice)
+        #full_data_sorted = full_data_head
+
+        country_codes = full_data_head['Code'].unique()
+        print(country_codes)
+        print(type(country_codes))
+        #Now create a new dataset with all the metrics and these countries in it
+        #& (full_data_sorted.Metric.isin(metric_choice))
+        full_data_head_countries = full_data_sorted[full_data_sorted['Code'].isin(country_codes)] #& (full_data_sorted.Metric.isin(metric_choice)),:]
+        print(full_data_head_countries)
+
+        full_data_sorted = full_data_head_countries
+        
+        #full_data_sorted = full_data_sorted.reset_index()
+        #full_data_sorted = full_data_sorted.fillna(0)
+    ## Commented out the above section
+
+    #color_discrete_sequence = ['#609cd4']*len(data_2)
+
+    graph_title = f"Countries' proportions of a finance goal according to the {principle_choice} Principle" #based on {year_choice} {metric_choice} data from the {dataset_choice}"
+
+    # if (principle_choice == 'Ability to Pay'):
+    #     if (metric_choice == 'GDP'): 
+    #         graph_title = f"(A)"
+    #     elif (metric_choice == 'GNI'):
+    #         graph_title = f"(B)"
+    #     elif (metric_choice == 'GDP per capita'):
+    #         graph_title = f"(C)"
+    #     elif (metric_choice == 'GNI per capita'):
+    #         graph_title = f"(D)"
+    #     else:
+    #         graph_title = f"(E)"
+    # elif (principle_choice == 'Beneficiary Pays'):
+    #     if ((metric_choice == 'Total wealth') & (year_choice == 1995)):
+    #         graph_title = f"(A)"
+    #     elif ((metric_choice == 'Total wealth') & (year_choice == 2018)):
+    #         graph_title = f"(B)"
+    #     elif ((metric_choice == 'Total wealth per capita') & (year_choice == 1995)):
+    #         graph_title = f"(C)"
+    #     elif ((metric_choice == 'Total wealth per capita') & (year_choice == 2018)):
+    #         graph_title = f"(D)"
+    #     else:
+    #         graph_title = f"(E)"
+    # else:
+    #     graph_title = graph_title
+
+    fig = px.bar(full_data_sorted,
+                 x='Code',
+                 y='Final_value',
+                 color='Metric',
+                 barmode='group',
+                 title=graph_title,
+                 #labels=dict(x="Contribution US$"),
+                 #color=data2['Code'],
+                 #color_discrete_sequence = color_discrete_sequence,
+                 )
+    # Commented out the stuff above this point - 28 September 2025
+    # fig.update_xaxes(showgrid=False)
+    # fig.update_yaxes(showgrid=False)
+    # fig.update_layout(plot_bgcolor = "white")
+    # fig.update_layout(xaxis_title="Country code", yaxis_title="Cost (US$ billions)")
+    # Commented out the stuff above this point - 28 September 2025
+
+    #### Commented out table stuff below this point
+    # data_for_table = data2
+    # data_for_table['Value'] = data_for_table['Value']/1000000000
+
+    # data_for_table['Value'] = data_for_table['Value'].map('{:,.3f}'.format)
+    # data_for_table['Rank'] = range(1, len(data_for_table)+ 1)
+    # #print(data_for_table)
+
+    # data_for_table = data_for_table[['Rank', 'Country', 'Code', 'Value']]
+    #### Commented out table stuff above this point
+
+    # data_for_table = data_for_table.rename(columns={'Code':'Country Code'}, inplace=True)
+    # data_for_table = data_for_table.rename(columns={'Value':'Cost (US$)'}, inplace=True)
+    #data_for_table = data_for_table[0:9]
+    #print(data_for_table[0:19])
+    #return fig, data_for_table[0:10].to_dict('records')
+    return fig #, data_for_table.to_dict('records')
