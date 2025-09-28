@@ -945,7 +945,7 @@ def costs_clustered_graph (principle_choice, metric_choice, metric_choice_for_ra
 
     #color_discrete_sequence = ['#609cd4']*len(data_2)
 
-    graph_title = f"Countries' proportions of a finance goal according to the {principle_choice} Principle" #based on {year_choice} {metric_choice} data from the {dataset_choice}"
+    graph_title = f"(A)"# Countries' proportions of a finance goal according to metrics for applying the {principle_choice} Principle" #based on {year_choice} {metric_choice} data from the {dataset_choice}"
 
     # if (principle_choice == 'Ability to Pay'):
     #     if (metric_choice == 'GDP'): 
@@ -972,20 +972,22 @@ def costs_clustered_graph (principle_choice, metric_choice, metric_choice_for_ra
     # else:
     #     graph_title = graph_title
 
+
     fig = px.bar(full_data_sorted,
-                 x='Code',
+                 x='Country',
                  y='Final_value',
                  color='Metric',
                  barmode='group',
                  title=graph_title,
+                 labels={'Country': 'Country', 'Final_value':'Proportions of climate finance'}
                  #labels=dict(x="Contribution US$"),
                  #color=data2['Code'],
                  #color_discrete_sequence = color_discrete_sequence,
                  )
     # Commented out the stuff above this point - 28 September 2025
-    # fig.update_xaxes(showgrid=False)
-    # fig.update_yaxes(showgrid=False)
-    # fig.update_layout(plot_bgcolor = "white")
+    fig.update_xaxes(showgrid=False)
+    fig.update_yaxes(showgrid=False)
+    fig.update_layout(plot_bgcolor = "white")
     # fig.update_layout(xaxis_title="Country code", yaxis_title="Cost (US$ billions)")
     # Commented out the stuff above this point - 28 September 2025
 
